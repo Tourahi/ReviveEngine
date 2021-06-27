@@ -1,0 +1,1 @@
+export Graphics = love.graphics
