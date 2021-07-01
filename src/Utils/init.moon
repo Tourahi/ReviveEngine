@@ -108,7 +108,7 @@ table.save = (tbl, fileName) ->
             file\write str .. ExportString( v ) .. "," .. charE
           elseif stype == "number"
             file\write str .. tostring( v ) .. "," .. charE
-      file\write  "}," .. charE
+    file\write  "}," .. charE
   file\write "}"
   file\close!
 
