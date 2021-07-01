@@ -51,6 +51,69 @@ RadomString = (len) ->
     arr[i] = string.char random(97, 122)
   concat arr
 
+ExportString = (s) ->
+  string.format "%q", s
+
+table.save = (tbl, fileName) ->
+  charS, charE = "   ", "\n"
+  file, err = io.open fileName, "wb"
+  if err
+    err
+
+  -- Init vars
+  tables, lookup = { tbl }, { [tbl]: 1 }
+  file\write "return {" .. charE
+
+  for idx, t in ipairs tables
+    file\write "-- Table: {" .. idx .. "}" .. charE
+    file\write "{" .. charE
+    thandled = {}
+
+    for i, v in ipairs t
+      thandled[i] = true
+      stype = type v
+      if stype == "table"
+        if not lookup[v]
+          table.insert tables, v
+          lookup[v] = #tables
+        file\write charS .. "{" .. lookup[v] .. "}," .. charE
+      elseif stype == "string"
+        file\write charS .. ExportString(v) .. "," .. charE
+      elseif stype == "number"
+        file\write charS .. tostring(v) .. "," .. charE
+
+    for i, v in pairs t
+      if not thandled[i]
+        str = ""
+        stype = type i
+        -- idx
+        if stype == "table"
+          if not lookup[i]
+            table.insert tables, i
+            lookup[i] = #tables
+          str = charS .. "[{" .. lookup[i] .. "]}="
+        elseif stype == "string"
+          str = charS .. "[" .. ExportString(i) .. "]="
+        elseif stype == "number"
+          str = charS .. "[" .. tostring(i) .. "]="
+
+        if str ~= ""
+          stype = type v
+          if stype == "table"
+            if not lookup[v]
+              table.insert tables, v
+              lookup[v] = #tables
+            file\write str .. "{" .. lookup[v] .. "}," ..charE
+          elseif stype == "string"
+            file\write str .. ExportString( v ) .. "," .. charE
+          elseif stype == "number"
+            file\write str .. tostring( v ) .. "," .. charE
+      file\write  "}," .. charE
+  file\write "}"
+  file\close!
+
+
+
 
 
 {:FileExists, :ReadAll, :DumpErr, :Fork, :RadomString}
