@@ -21,6 +21,13 @@
     - [x] enable / disable 
     - [x] Control Forking
 
+* Camera : 
+
+  * Camera attached to the Scene 
+    - [ ] scale, translate
+    - [ ] draw
+    - [ ] focus
+
 
 
 
