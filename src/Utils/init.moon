@@ -26,15 +26,14 @@ FileExists = (name) ->
 Fork = (o, seen) ->
   seen = seen or {}
   if o == nil
-    nil
+    return nil
   if seen[o]
-    seen[o]
+    return seen[o]
 
   new_o = {}
-  if type o == 'table'
+  if type(o) == 'table'
     seen[o] = new_o
-
-    for k, v in next, o, nil
+    for k, v in pairs o
       new_o[Fork(k, seen)] = Fork v, seen
     setmetatable new_o, Fork(getmetatable(o), seen)
   else

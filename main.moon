@@ -13,7 +13,12 @@ testTab = {
 }
 with love
   .load = () ->
-    math.randomseed os.time!
-    print Utils.FileExists "ToDoLog.md"
-    print Utils.RadomString 9
-    table.save testTab, "testing"
+    o = Utils.Fork testTab
+    print o
+    Dump o
+    print testTab
+    Dump testTab
+    --math.randomseed os.time!
+    --print Utils.FileExists "ToDoLog.md"
+    --print Utils.RadomString 9
+    --table.save testTab, "testing"

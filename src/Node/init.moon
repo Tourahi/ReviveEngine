@@ -1,6 +1,7 @@
+Graphics = love.graphics
 import insert from table
 import remove from table
-
+Utils = assert require "src.Utils"
 
 class Node
   new: (nameId, img, x, y) =>
@@ -62,6 +63,7 @@ class Node
       Graphics.draw @drawable, @distance / 100 * (@x + @px),
         @distance / 100 * (@y + @py), @rot, @distance / 100,
         @distance / 100, @ox, @oy
+    -- draw the engineSprite
 
     if @children ~= nil
       for _, c in ipairs @children
@@ -118,6 +120,11 @@ class Node
         0, 0
       @editorSprite\getWidth! * (@distance / 100), @editorSprite\getHeight! * (@distance / 100)
     @drawable\getWidth! * (@distance / 100), @drawable\getHeight! * (@distance / 100)
+
+  Fork: (name) ->
+    node = Utils.Fork self
+    node.name = name
+    node
 
 
 
