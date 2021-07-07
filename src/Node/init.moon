@@ -32,17 +32,17 @@ class Node
     @onUpdate = {}
 
 
-  attachUpdateCb: (updt) ->
+  attachUpdateCb: (updt) =>
     @onUpdate = updt
 
-  addChild: (child) ->
+  addChild: (child) =>
     -- assert child.__class ~= self, "Child must be a Node."
     insert @children, child
 
-  removeChild: (child) ->
+  removeChild: (child) =>
     remove @children, child
 
-  upadte: (dt) ->
+  upadte: (dt) =>
     for _,c in ipairs @controls
       if c.enabled
         c\updatedt
@@ -51,13 +51,13 @@ class Node
       @Animate dt
     @updateChildren dt
 
-  updateChildren: (dt) ->
+  updateChildren: (dt) =>
     if @children == nil
       return
     for _,c in ipairs @children
       c\update dt
 
-  draw: ->
+  draw: =>
     Graphics.setColor @colorFilter
     if @drawable ~= nil
       Graphics.draw @drawable, @distance / 100 * (@x + @px),
@@ -72,27 +72,27 @@ class Node
         c\draw!
 
   -- Controls handling
-  addControl: (ctrl) ->
+  addControl: (ctrl) =>
     c = ctrl\fork!
     c.parent = self
     insert @controls, c
 
-  getControl: (name) ->
+  getControl: (name) =>
     for _, c in ipairs @controls
       if c.name == name
         return c
     return nil
 
-  removeControl: (name) ->
+  removeControl: (name) =>
     for _, c in ipairs @controls
       if c.name == name
         remove @controls, _
         break
 
-  getDimensions: ->
+  getDimensions: =>
     @getWidth! * (@distance / 100), @getHeight! * (@distance / 100)
 
-  getWidth: ->
+  getWidth: =>
     if @drawable ~= nil
       @drawable\getWidth! * (@distance / 100)
     elseif @editorSprite ~= nil
@@ -100,7 +100,7 @@ class Node
     else
       0
 
-  getHeight: ->
+  getHeight: =>
     if @drawable ~= nil
       @drawable\getHeight! * (@distance / 100)
     elseif @editorSprite ~= nil
@@ -108,20 +108,20 @@ class Node
     else
       0
 
-  getRealPos: ->
+  getRealPos: =>
     @x - @ox * (@distance / 100), @y - @oy * (@distance / 100)
 
-  getPos: ->
+  getPos: =>
     @x * (@distance / 100),@y * (@distance / 100)
 
-  getSize: ->
+  getSize: =>
     if @drawable == nil
       if @editorSprite == nil
         0, 0
       @editorSprite\getWidth! * (@distance / 100), @editorSprite\getHeight! * (@distance / 100)
     @drawable\getWidth! * (@distance / 100), @drawable\getHeight! * (@distance / 100)
 
-  Fork: (name) ->
+  fork: (name) =>
     node = Utils.Fork self
     node.name = name
     node
