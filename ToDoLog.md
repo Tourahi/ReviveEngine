@@ -31,7 +31,7 @@
 * Scene :
 
   * Will hold multiple nodes update them render them.
-    - [ ] AddNodes  and sort them by layer if they have the same distance
+    - [x] AddNodes  and sort them by layer if they have the same distance
 
 
 
