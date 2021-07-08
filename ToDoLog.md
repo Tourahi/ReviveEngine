@@ -24,9 +24,14 @@
 * Camera : 
 
   * Camera attached to the Scene 
-    - [ ] scale, translate
-    - [ ] draw
-    - [ ] focus
+    - [x] scale, translate
+    - [x] draw
+    - [x] focus
+
+* Scene :
+
+  * Will hold multiple nodes update them render them.
+    - [ ] AddNodes  and sort them by layer if they have the same distance
 
 
 
